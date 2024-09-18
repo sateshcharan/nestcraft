@@ -7,6 +7,7 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Home from "./pages/Home";
 import Layout from "./pages/Layout";
+import Workbench from "./pages/Workbench";
 
 function App() {
   const router = createBrowserRouter([
@@ -26,6 +27,10 @@ function App() {
           element: <Contact />,
         },
       ],
+    },
+    {
+      path: "workbench",
+      element: <Workbench />,
     },
   ]);
 
