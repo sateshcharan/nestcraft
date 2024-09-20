@@ -1,3 +1,4 @@
+from typing  import List
 
 from dotenv import load_dotenv
 from fastapi import FastAPI, File, HTTPException, UploadFile
@@ -27,14 +28,18 @@ def read_root():
 
 # Endpoint to handle file upload and call Python DXF to SVG conversion script
 @app.post("/dxf_to_svg")
-async def convert_dxf_to_svg(file: UploadFile = File(...)):
+async def convert_dxf_to_svg(files: List[UploadFile] = File(...)):
+
     try:
-        # Perform the DXF to SVG conversion
-        svg_file = await dxf_to_svg(file)
+        svgFiles = []
+        for file in files:
+            # Perform the DXF to SVG conversion
+            svg_file = await dxf_to_svg(file)
         
-        # Return the converted SVG content
-        return {"svg": svg_file}
-    
+            # Return the converted SVG content
+            svgFiles.append(svg_file) 
+
+        return{"svg":svgFiles}
     except Exception as e:
         # Handle any errors that occur during the conversion process
         raise HTTPException(status_code=500, detail=str(e))
