@@ -8,16 +8,15 @@ const DxfContainer = (props: Props) => {
 
   const handleUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
-    console.log(file);
 
-    if (file && file.type === "") {
+    if (file) {
       const formData = new FormData();
       formData.append("file", file);
 
       try {
         // Send the DXF file to the server to convert it to SVG
         const res = await axios.post(
-          "http://localhost:3000/convert-dxf",
+          "http://localhost:8000/dxf_to_svg",
           formData,
           {
             headers: {
@@ -27,8 +26,7 @@ const DxfContainer = (props: Props) => {
         );
 
         // Assume the server sends back SVG data
-        console.log(res.data);
-        // setDxfSvg(res.data.svg); // Store the SVG content
+        setDxfSvg(res.data.svg); // Store the SVG content
       } catch (error) {
         console.error("Error uploading file:", error);
       }
