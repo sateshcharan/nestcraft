@@ -1,18 +1,24 @@
-import { createContext, useState } from "react";
+import { createContext, useState, ReactNode } from "react";
 
 type FileContextProps = {
-  children: JSX.Element;
+  children: ReactNode; // Correct type for children
 };
 
-export const FileContext = createContext({
-  file: "",
-  setFile: (file: string) => {},
+type FileContextType = {
+  files: File[]; // Assuming files are of type File
+  setFiles: (files: File[]) => void;
+};
+
+// Create a context with the appropriate default value
+export const FileContext = createContext<FileContextType>({
+  files: [],
+  setFiles: () => {}, // This will be overridden by the provider
 });
 
 export const FileContextProvider = ({ children }: FileContextProps) => {
-  const [file, setFile] = useState("");
+  const [files, setFiles] = useState<File[]>([]); // Define useState type as an array of File
 
-  const value = { file, setFile };
+  const value = { files, setFiles };
 
   return <FileContext.Provider value={value}>{children}</FileContext.Provider>;
 };

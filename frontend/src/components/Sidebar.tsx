@@ -90,7 +90,6 @@ export function Sidebar({ title, description, side, children }: any) {
                 </div>
               )}
             </SheetHeader>
-
             {children}
           </ScrollArea>
         </SheetContent>

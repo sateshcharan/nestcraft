@@ -1,17 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { FileContext } from "@/context/FileContext";
 import axios from "axios";
 
-type Props = {};
-
-const DxfContainer = (props: Props) => {
-  const [dxfSvg, setDxfSvg] = useState<string>("");
+const DxfContainer = () => {
+  const { files, setFiles } = useContext(FileContext);
 
   const handleUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
+    const files = event.target.files;
 
-    if (file) {
+    if (files) {
       const formData = new FormData();
-      formData.append("file", file);
+
+      // Append each file individually to the formData
+      Array.from(files).forEach((file) => {
+        formData.append("files", file); // Use "files" as the key for all files
+      });
 
       try {
         // Send the DXF file to the server to convert it to SVG
@@ -26,7 +29,8 @@ const DxfContainer = (props: Props) => {
         );
 
         // Assume the server sends back SVG data
-        setDxfSvg(res.data.svg); // Store the SVG content
+        const svgFiles = res.data;
+        setFiles(svgFiles); // Store the SVG content
       } catch (error) {
         console.error("Error uploading file:", error);
       }
@@ -38,10 +42,12 @@ const DxfContainer = (props: Props) => {
   return (
     <div>
       {/* Show file input if no DXF has been uploaded yet */}
-      {!dxfSvg && <input type="file" accept=".dxf" onChange={handleUpload} />}
+      {files?.length === 0 && (
+        <input type="file" multiple accept=".dxf" onChange={handleUpload} />
+      )}
 
       {/* Display the converted SVG */}
-      {dxfSvg && <div dangerouslySetInnerHTML={{ __html: dxfSvg }} />}
+      {/* {files && <div dangerouslySetInnerHTML={{ __html: files }} />} */}
     </div>
   );
 };

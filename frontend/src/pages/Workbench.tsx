@@ -12,7 +12,7 @@ import SvgContainer from "@/components/SvgContainer";
 
 const Workbench = () => {
   return (
-    <div className="flex flex-col justify-between items-center min-h-screen">
+    <div className="flex  justify-between items-center min-h-screen">
       <Sidebar
         side="left"
         title="Input Data"
@@ -55,9 +55,8 @@ const Workbench = () => {
         </Accordion>
       </Sidebar>
 
-      <SvgContainer />
-
       <PreviewCarousel />
+      <SvgContainer />
 
       <Sidebar
         side="right"
