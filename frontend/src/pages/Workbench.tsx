@@ -6,17 +6,16 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@radix-ui/react-accordion";
-import { ChevronDownIcon } from "lucide-react";
 import { PreviewCarousel } from "@/components/PreviewCarousel";
 import SvgContainer from "@/components/SvgContainer";
 
 const Workbench = () => {
   return (
-    <div className="flex  justify-between items-center min-h-screen">
+    <div className="flex h-screen w-screen overflow-x-hidden">
       <Sidebar
-        side="left"
         title="Input Data"
         description="Enter or upload your data below and click calculate to get started"
+        className="w-1/5"
       >
         <Accordion
           type="single"
@@ -55,16 +54,16 @@ const Workbench = () => {
         </Accordion>
       </Sidebar>
 
-      <PreviewCarousel />
+      <PreviewCarousel className="w-1/6" />
       <SvgContainer />
 
-      <Sidebar
-        side="right"
-        title="Results"
-        description="Refer Below for the results of your calculations"
-      >
-        <TableList />
-      </Sidebar>
+      {/* <Sidebar
+          side="right"
+          title="Results"
+          description="Refer Below for the results of your calculations"
+        >
+          <TableList />
+        </Sidebar> */}
     </div>
   );
 };

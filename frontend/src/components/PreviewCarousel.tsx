@@ -10,31 +10,27 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 
-export function PreviewCarousel() {
-  const { files } = useContext(FileContext);
+export function PreviewCarousel({ className }: any) {
+  const { inputFiles } = useContext(FileContext);
 
   return (
     <Carousel
       opts={{
-        align: "start",
+        align: "center",
       }}
       orientation="vertical"
-      className="w-full max-w-sm"
+      className={className}
     >
       <CarouselContent>
-        {files.svg &&
-          files.svg.map((file: any, index: number) => (
-            <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
-              <div className="p-1">
-                <Card>
-                  <CardContent className="flex aspect-square items-center justify-center p-6">
-                    <div
-                      dangerouslySetInnerHTML={{ __html: file }}
-                      style={{ width: "100%", height: "auto" }}
-                    />
-                  </CardContent>
-                </Card>
-              </div>
+        {inputFiles.svgFiles?.length > 0 &&
+          inputFiles.svgFiles.map((file: any, index: number) => (
+            <CarouselItem key={index} className="md:basis-1/10 lg:basis-1/10">
+              <Card>
+                <CardContent
+                  dangerouslySetInnerHTML={{ __html: file }}
+                  className="flex aspect-square items-center justify-center w-full h-full"
+                />
+              </Card>
             </CarouselItem>
           ))}
       </CarouselContent>

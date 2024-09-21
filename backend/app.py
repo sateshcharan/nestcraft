@@ -23,7 +23,7 @@ app.add_middleware(
 # Endpoint for testing
 @app.get("/")
 def read_root():
-    return {"svg": "/Home"}
+    return {"svgFiles": "/Home"}
 
 
 # Endpoint to handle file upload and call Python DXF to SVG conversion script
@@ -39,7 +39,7 @@ async def convert_dxf_to_svg(files: List[UploadFile] = File(...)):
             # Return the converted SVG content
             svgFiles.append(svg_file) 
 
-        return{"svg":svgFiles}
+        return{"svgFiles":svgFiles}
     except Exception as e:
         # Handle any errors that occur during the conversion process
         raise HTTPException(status_code=500, detail=str(e))

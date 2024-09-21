@@ -1,3 +1,5 @@
+import { useContext } from "react";
+
 import {
   Table,
   TableBody,
@@ -8,55 +10,47 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-
-let invoices: any;
+import { FileContext } from "@/context/FileContext";
 
 export function TableList() {
+  const { options, inputFiles } = useContext(FileContext);
+  const columnQty = Object.keys(inputFiles.fileProperties).length;
+
   return (
     <Table>
       <TableCaption>A list of your recent invoices.</TableCaption>
-
       <TableHeader>
         <TableRow>
-          <TableHead className="w-[100px]">Length</TableHead>
+          <TableHead colSpan={columnQty}>Hello</TableHead>
+        </TableRow>
+        <TableRow>
+          <TableHead className="w-10">Length</TableHead>
           <TableHead>Wdith</TableHead>
           <TableHead>Qty</TableHead>
-          <TableHead className="text-right">Material</TableHead>
+          {Object.entries(options).map(([key, value]) => {
+            if (value) {
+              return <TableHead key={key}>{key}</TableHead>;
+            }
+          })}
         </TableRow>
       </TableHeader>
 
+      {/* populates the table values     */}
       <TableBody>
-        {invoices &&
-          invoices.map((invoice: any) => (
-            <TableRow key={invoice.invoice}>
-              <TableCell className="font-medium">{invoice.invoice}</TableCell>
-              <TableCell>{invoice.paymentStatus}</TableCell>
-              <TableCell>{invoice.paymentMethod}</TableCell>
-              <TableCell className="text-right">
-                {invoice.totalAmount}
-              </TableCell>
-            </TableRow>
-          ))}
-
-        {!invoices &&
-          Array.from({ length: 5 }, (_, i) => {
-            return (
+        {inputFiles.fileProperties
+          ? Object.entries(inputFiles.fileProperties).map(([key, value]) => (
+              <TableRow key={key}>
+                {/* <TableCell className="font-medium">{value}</TableCell> */}
+              </TableRow>
+            ))
+          : Array.from({ length: 3 }, (_, i) => (
               <TableRow key={i}>
                 <TableCell>{i}</TableCell>
                 <TableCell>{i}</TableCell>
                 <TableCell>{i}</TableCell>
-                <TableCell>{i}</TableCell>
               </TableRow>
-            );
-          })}
+            ))}
       </TableBody>
-
-      <TableFooter>
-        <TableRow>
-          <TableCell colSpan={3}>Total</TableCell>
-          <TableCell className="text-right">$2,500.00</TableCell>
-        </TableRow>
-      </TableFooter>
     </Table>
   );
 }

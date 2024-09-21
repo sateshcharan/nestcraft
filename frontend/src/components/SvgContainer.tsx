@@ -1,14 +1,20 @@
-import React, { useState, useContext } from "react";
-import { FileContext } from "@/context/FileContext";
+import React, { useContext } from "react";
 import axios from "axios";
 
+import { FileContext } from "@/context/FileContext";
+
 const DxfContainer = () => {
-  const { files, setFiles } = useContext(FileContext);
+  const { inputFiles, setInputFiles } = useContext(FileContext);
 
   const handleUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
 
     if (files) {
+      setInputFiles((prev) => ({
+        ...prev,
+        files: Array.from(files),
+      }));
+
       const formData = new FormData();
 
       // Append each file individually to the formData
@@ -29,8 +35,12 @@ const DxfContainer = () => {
         );
 
         // Assume the server sends back SVG data
-        const svgFiles = res.data;
-        setFiles(svgFiles); // Store the SVG content
+        const svgFiles: string[] = res.data.svgFiles;
+
+        setInputFiles((prev) => ({
+          ...prev,
+          svgFiles: svgFiles,
+        }));
       } catch (error) {
         console.error("Error uploading file:", error);
       }
@@ -40,9 +50,9 @@ const DxfContainer = () => {
   };
 
   return (
-    <div>
+    <div className="w-full flex justify-center items-center ">
       {/* Show file input if no DXF has been uploaded yet */}
-      {files?.length === 0 && (
+      {inputFiles.files?.length === 0 && (
         <input type="file" multiple accept=".dxf" onChange={handleUpload} />
       )}
 
