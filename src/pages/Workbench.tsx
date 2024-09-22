@@ -11,11 +11,11 @@ import SvgContainer from "@/components/SvgContainer";
 
 const Workbench = () => {
   return (
-    <div className="flex h-screen w-screen overflow-x-hidden">
+    <div className="flex h-screen w-screen overflow-hidden justify-between">
       <Sidebar
         title="Input Data"
         description="Enter or upload your data below and click calculate to get started"
-        className="w-1/5"
+        className="w-1/4 bg-slate-100"
       >
         <Accordion
           type="single"
@@ -24,29 +24,7 @@ const Workbench = () => {
           className="pt-4"
         >
           <AccordionItem value="item-1">
-            <AccordionTrigger>
-              <div className="w-full flex flex-row justify-between items-center ">
-                <h3>Parts</h3>
-              </div>
-            </AccordionTrigger>
-            <AccordionContent>
-              <TableList />
-            </AccordionContent>
-          </AccordionItem>
-        </Accordion>
-
-        <Accordion
-          type="single"
-          collapsible
-          defaultValue="item-1"
-          className="pt-4"
-        >
-          <AccordionItem value="item-1">
-            <AccordionTrigger>
-              <div className="w-full flex flex-row justify-between items-center ">
-                <h3>Stock</h3>
-              </div>
-            </AccordionTrigger>
+            <AccordionTrigger>Parts</AccordionTrigger>
             <AccordionContent>
               <TableList />
             </AccordionContent>
@@ -54,16 +32,28 @@ const Workbench = () => {
         </Accordion>
       </Sidebar>
 
-      <PreviewCarousel className="w-1/6" />
+      <PreviewCarousel />
       <SvgContainer />
 
-      {/* <Sidebar
-          side="right"
-          title="Results"
-          description="Refer Below for the results of your calculations"
+      <Sidebar
+        title="Output Data"
+        description="Get your results here"
+        className="w-1/4 bg-slate-100"
+      >
+        <Accordion
+          type="single"
+          collapsible
+          defaultValue="item-1"
+          className="pt-4"
         >
-          <TableList />
-        </Sidebar> */}
+          <AccordionItem value="item-1">
+            <AccordionTrigger>Results</AccordionTrigger>
+            <AccordionContent>
+              <TableList />
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
+      </Sidebar>
     </div>
   );
 };

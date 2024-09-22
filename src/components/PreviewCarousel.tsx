@@ -22,7 +22,7 @@ export function PreviewCarousel({ className }: any) {
       className={className}
     >
       <CarouselContent>
-        {inputFiles.svgFiles?.length > 0 &&
+        {/* {inputFiles.svgFiles?.length > 0 &&
           inputFiles.svgFiles.map((file: any, index: number) => (
             <CarouselItem key={index} className="md:basis-1/10 lg:basis-1/10">
               <Card>
@@ -32,7 +32,7 @@ export function PreviewCarousel({ className }: any) {
                 />
               </Card>
             </CarouselItem>
-          ))}
+          ))} */}
       </CarouselContent>
       <CarouselPrevious />
       <CarouselNext />

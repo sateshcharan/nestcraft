@@ -11,18 +11,23 @@ type OptionsType = {
 };
 
 type fileProperties = {
-  label: number;
   length: number;
   width: number;
   qty: number;
-  [key: string]: number;
+  label: number;
+  material: string;
+  direction: string;
+  [key: string]: string | number;
 };
 
 type InputFilesType = {
-  files: File[];
+  files: {
+    file: File;
+    properties: fileProperties;
+    svg: string;
+    [key: string]: File | fileProperties | string;
+  }[];
   stocks: [];
-  svgFiles: string[];
-  fileProperties: fileProperties[];
 };
 
 // Define the context type
